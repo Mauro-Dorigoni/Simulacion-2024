@@ -40,4 +40,7 @@ def calculo_var_desv_reales(valores,prom_real):
     desv_real=math.sqrt(var_real)
     return var_real,desv_real
 
+#Obtengo el nro de iteraciones y el nro elegido de la CLI#
+nro_iteraciones=int(sys.argv[2])
+nro_elegido=int(sys.argv[4])
 
