@@ -1,8 +1,10 @@
 import random
+import array as arr
 import statistics
 import math
 import sys
 import matplotlib as plt
+import matplotlib.pyplot as plt
 
 #Funcion calculo de promedio esperado#
 def calculo_promedio_esperado():
@@ -49,5 +51,21 @@ if len(sys.argv)!=5 or sys.argv[1]!="-c" or sys.argv[3]!="-n":
 #Obtengo el nro de iteraciones y el nro elegido de la CLI#
 nro_iteraciones=int(sys.argv[2])
 nro_elegido=int(sys.argv[4])
-print(nro_elegido, nro_iteraciones)
 
+
+#Empiezo con grafica frecuencia vs iteracion#
+valores=[0 for x in range (nro_iteraciones)]
+frec_rel_real_grafica=[0.000 for x in range(nro_iteraciones)]
+for index in range(len(valores)):
+    valores[index]=int(random.randint(0,36))
+    frec_abs,frec_rel=calculo_frecuencias(valores,nro_elegido)
+    frec_rel_real_grafica[index]=frec_rel
+frec_rel_esperada_grafica=[(1/37) for x in range(nro_iteraciones)]
+nro_tiradas=[0 for x in range(nro_iteraciones)]
+for index in range (len(nro_tiradas)):
+    nro_tiradas[index]=index
+plt.plot(nro_tiradas,frec_rel_real_grafica)
+plt.title('Frecuencia relativa vs numero de tiradas')
+plt.xlabel('numero tiradas')
+plt.ylabel('frecuencia relativa')
+plt.show()
