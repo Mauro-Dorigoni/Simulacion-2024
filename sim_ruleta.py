@@ -2,6 +2,7 @@ import random
 import statistics
 import math
 import sys
+import matplotlib as plt
 
 #Funcion calculo de promedio esperado#
 def calculo_promedio_esperado():
@@ -40,7 +41,13 @@ def calculo_var_desv_reales(valores,prom_real):
     desv_real=math.sqrt(var_real)
     return var_real,desv_real
 
+#compurebo que el programa en CLI se use como se debe#
+if len(sys.argv)!=5 or sys.argv[1]!="-c" or sys.argv[3]!="-n":
+    print("Uso: python sim_ruleta.py -c <nro_iteraciones> -n <nro_elegido>")
+    sys.exit(1)
+
 #Obtengo el nro de iteraciones y el nro elegido de la CLI#
 nro_iteraciones=int(sys.argv[2])
 nro_elegido=int(sys.argv[4])
+print(nro_elegido, nro_iteraciones)
 
