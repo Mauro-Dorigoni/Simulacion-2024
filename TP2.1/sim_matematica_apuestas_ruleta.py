@@ -46,13 +46,15 @@ def calculo_var_desv_reales(valores):
 
 #compurebo que el programa en CLI se use como se debe#
 if len(sys.argv)!=7 or sys.argv[1]!="-c" or sys.argv[3]!="-n" or sys.argv[5]!="-e":
-    print("Uso: python sim_ruleta.py -c <nro_corridas> -n <nro_iteraciones> -e <nro_elegido>")
+    print("Uso: python sim_ruleta.py -c <nro_corridas> -n <nro_iteraciones> -e <nro_elegido> -s <estrategia [m|d|f|o]> -a <tipo_capital [i|f]>")
     sys.exit(1)
 
 #Obtengo el nro de iteraciones y el nro elegido de la CLI#
 nro_corridas=int(sys.argv[2])
 nro_iteraciones=int(sys.argv[4])
 nro_elegido=int(sys.argv[6])
+estrategia=(sys.argv[8])
+tipo_capital=(sys.argv[10])
 
 
 #Programa Principal#
@@ -106,52 +108,4 @@ var_esp,desv_esp=calculo_var_desv_esperados()
 var_prom_esp_p_corrida=[var_esp for x in range(nro_iteraciones)]
 desv_prom_esp_p_corrida=[desv_esp for x in range(nro_iteraciones)]
 
-#Graficas por corridas#
-f=plt.figure()
-plt.plot(nro_tiradas,frec_rel_prom_esp_p_corrida, label='fre',color='blue')
-for i in range(nro_corridas): 
-    plt.plot(nro_tiradas,curva_frec_rel_p_corrida[i],label='frn'+str(i+1),color='red')
-plt.legend()
-f.savefig('curvas_frecuencia_por_corrida.jpg')
-
-p=plt.figure()
-plt.plot(nro_tiradas,prom_prom_esp_p_corrida, label='vpe',color='blue')
-for i in range(nro_corridas): 
-    plt.plot(nro_tiradas,curvas_valor_prom_p_corrida[i],label='vpn'+str(i+1),color='red')
-plt.legend()
-p.savefig('curvas_promedio_por_corrida.jpg')
-
-v=plt.figure()
-plt.plot(nro_tiradas,var_prom_esp_p_corrida, label='vve',color='blue')
-for i in range(nro_corridas): 
-    plt.plot(nro_tiradas,curvas_var_p_corrida[i],label='vvn'+str(i+1),color='red')
-plt.legend()
-v.savefig('curvas_varianza_por_corrida.jpg')
-
-d=plt.figure()
-plt.plot(nro_tiradas,desv_prom_esp_p_corrida, label='vde',color='blue')
-for i in range(nro_corridas): 
-    plt.plot(nro_tiradas,curvas_desv_prom_p_corrida[i],label='vdn'+str(i+1),color='red')
-plt.legend()
-d.savefig('curvas_desvio_por_corrida.jpg')
-
-#Graficas por tirada#
-def graficas_por_tirada(esperada, datos, etiqueta, nombre_archivo):
-    f=plt.figure()
-    plt.plot(nro_tiradas,esperada, label=etiqueta+'e', color='blue')
-    plt.plot(nro_tiradas, datos, label=etiqueta+'n',color='red')
-    plt.legend()
-    f.savefig(nombre_archivo+'.jpg')
-
-for x in range(nro_corridas):
-    graficas_por_tirada(frec_rel_prom_esp_p_corrida, curva_frec_rel_p_corrida[x], 'fr', 'grafica_frecuencia_por_tirada'+str(x))
-
-for x in range(nro_corridas):
-    graficas_por_tirada(prom_prom_esp_p_corrida, curvas_valor_prom_p_corrida[x], 'vp', 'grafica_promedio_por_tirada'+str(x))
-
-for x in range(nro_corridas):
-    graficas_por_tirada(var_prom_esp_p_corrida, curvas_var_p_corrida[x], 'vv', 'grafica_varianza_por_tirada'+str(x))
-
-for x in range(nro_corridas):
-    graficas_por_tirada(desv_prom_esp_p_corrida, curvas_desv_prom_p_corrida[x], 'vd', 'grafica_desvio_por_tirada'+str(x))
     
