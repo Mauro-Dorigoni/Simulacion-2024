@@ -56,6 +56,15 @@ nro_elegido=int(sys.argv[6])
 estrategia=(sys.argv[8])
 tipo_capital=(sys.argv[10])
 
+def graph_flujo_caja(flujo_caja):
+    nro_tiradas_eje_x=[x for x in range(len(flujo_caja))]
+    #print(flujo_caja, nro_tiradas_eje_x)
+    f=plt.figure()
+    plt.plot(nro_tiradas_eje_x,flujo_caja,label="fc",color="red")
+    plt.legend()
+    f.savefig("prueba.jpg")
+
+
 def martingala_sig_paso(apuesta,paso,ganancias,salida):
     negro=[15,4,2,17,6,13,11,8,10,24,33,20,31,22,29,28,35,26]
     if salida in negro:
@@ -72,9 +81,6 @@ def martingala_sig_paso(apuesta,paso,ganancias,salida):
 
 def martingala(nro_tiradas,tipo_capital,banca):
     flujo_caja=[0 for x in range(nro_tiradas+1)]
-    nro_tiradas_eje_x=[0 for x in range(nro_tiradas+1)]
-    for index in range(nro_tiradas+1):
-        nro_tiradas_eje_x[index]=index
     paso_a_usar=1
     apuesta=1
     ejex=nro_tiradas
@@ -86,7 +92,8 @@ def martingala(nro_tiradas,tipo_capital,banca):
             salida=int(random.randint(0,36))
             paso_a_usar,ganancias,apuesta=martingala_sig_paso(apuesta,paso_a_usar,ganancias,salida) 
             flujo_caja[x+1]=ganancias
-            ejex=x
+            ejex=x+1
+            print(ejex)
 
     if tipo_capital=="i":
         flujo_caja[0]=0
@@ -96,10 +103,12 @@ def martingala(nro_tiradas,tipo_capital,banca):
             paso_a_usar,ganancias,apuesta=martingala_sig_paso(apuesta,paso_a_usar,ganancias,salida) 
             flujo_caja[x+1]=ganancias
     print(flujo_caja)
-    f=plt.figure()
-    plt.plot(nro_tiradas_eje_x[:ejex],flujo_caja[:ejex],label="fc",color="red")
-    plt.legend()
-    f.savefig("prueba.jpg")
+    graph_flujo_caja(flujo_caja[:(ejex+1)])
+
+
+
+#def dalambert(nro_tiradas, tipo_capital,banca):
+
 
 
 #Programa Principal#
