@@ -52,7 +52,7 @@ def martingala(nro_tiradas,tipo_capital,banca):
         flujo_caja[0]=banca
         ganancias=banca
         for x in range (nro_tiradas):
-            if ganancias<=0: break
+            if ganancias<=0 or apuesta>ganancias: break
             salida=int(random.randint(0,36))
             paso_a_usar,ganancias,apuesta=martingala_sig_paso(apuesta,paso_a_usar,ganancias,salida) 
             flujo_caja[x+1]=ganancias
@@ -80,7 +80,7 @@ def dalambert_sig_paso(apuesta,ganancias,salida):
         return ganancias,apuesta+1
 
 #Funcion que llama a la estrategia dalambert#
-def dalambert(nro_tiradas, tipo_capital,banca):
+def dalambert(nro_tiradas,tipo_capital,banca):
     apuesta=1
     flujo_caja=[0 for x in range(nro_tiradas+1)]
     ejex=nro_tiradas
@@ -88,7 +88,7 @@ def dalambert(nro_tiradas, tipo_capital,banca):
         ganancias=banca
         flujo_caja[0]=banca
         for x in range (nro_tiradas):
-            if ganancias<=0: break
+            if ganancias<=0 or apuesta>ganancias: break
             salida=int(random.randint(0,36))
             ganancias,apuesta=dalambert_sig_paso(apuesta,ganancias,salida) 
             flujo_caja[x+1]=ganancias
@@ -104,6 +104,47 @@ def dalambert(nro_tiradas, tipo_capital,banca):
     graph_flujo_caja(flujo_caja[:(ejex+1)])
 
 
+#Funcion para determinar el siguiente paso a tomar en estrategia fibonacci#
+def fibonacci_sig_paso(apuesta,ganancias,salida):
+    apuesta_previa,apuesta_curr=apuesta
+    if salida in negro:
+        ganancias=ganancias+apuesta_curr*2
+        if (apuesta==[1,1]):
+            return ganancias,[1,1]
+        if (apuesta==[1,2]):
+            return ganancias,[1,1]
+        else:
+            nueva_apuesta=apuesta_curr-apuesta_previa
+            return ganancias,[apuesta_previa-nueva_apuesta,nueva_apuesta]
+    else:
+        ganancias=ganancias-apuesta_curr
+        return ganancias,[apuesta_curr,apuesta_previa+apuesta_curr]
+
+#Funcion que llama a la estrategia fibonacci#
+def fibonacci(nro_tiradas,tipo_capital,banca):
+    apuesta=[1,1]
+    flujo_caja=[0 for x in range(nro_tiradas+1)]
+    ejex=nro_tiradas
+    if tipo_capital=="f":
+        ganancias=banca
+        flujo_caja[0]=banca
+        for x in range (nro_tiradas):
+            if ganancias<=0 or apuesta[1]>ganancias: break
+            salida=int(random.randint(0,36))
+            ganancias,apuesta=fibonacci_sig_paso(apuesta,ganancias,salida)
+            flujo_caja[x+1]=ganancias
+            ejex=x+1
+
+    if tipo_capital=="i":
+        flujo_caja[0]=0
+        ganancias=0
+        for x in range (nro_tiradas):
+            salida=int(random.randint(0,36))
+            print(apuesta)
+            ganancias,apuesta=fibonacci_sig_paso(apuesta,ganancias,salida)
+            flujo_caja[x+1]=ganancias
+    print(flujo_caja)
+    graph_flujo_caja(flujo_caja[:(ejex+1)])
 
 #Programa Principal#
 print("qcyo")
