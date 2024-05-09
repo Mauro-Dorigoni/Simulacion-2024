@@ -161,7 +161,6 @@ def fibonacci(nro_tiradas,tipo_capital,banca,corrida_actual):
         ganancias=0
         for x in range (nro_tiradas):
             salida=int(random.randint(0,36))
-            print(apuesta)
             ganancias,apuesta=fibonacci_sig_paso(apuesta,ganancias,salida)
             flujo_caja[x+1]=ganancias
     graph_flujo_caja(flujo_caja[:ejex],corrida_actual,"fibonacci")
@@ -212,14 +211,13 @@ def nosabemos(estrategia):
         if estrategia=="m":
             datos[x]=martingala(nro_iteraciones,tipo_capital,10,x)
         elif estrategia=="d":
-            dalambert(nro_iteraciones,tipo_capital,10,x)
+            datos[x]=dalambert(nro_iteraciones,tipo_capital,10,x)
         elif estrategia=="f":
-            fibonacci(nro_iteraciones,tipo_capital,10,x)
+            datos[x]=fibonacci(nro_iteraciones,tipo_capital,10,x)
         elif estrategia=="o":
-            proporcion_constante(nro_iteraciones,tipo_capital,nro_elegido,10,x)
+            datos[x]=proporcion_constante(nro_iteraciones,tipo_capital,nro_elegido,10,x)
         else: 
             print("algo salio mal")
-    print(datos)
     graph_resumen_corridas(datos,estrategia)
 
 
