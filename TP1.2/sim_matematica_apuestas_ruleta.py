@@ -3,7 +3,7 @@ import array as arr
 import statistics
 import math
 import sys
-import matplotlib as plt
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 negro=[15,4,2,17,6,13,11,8,10,24,33,20,31,22,29,28,35,26]
@@ -35,10 +35,11 @@ def graph_flujo_caja(flujo_caja,corrida_actual,estrategia):
     f.savefig("grafica_flujo_caja_corrida"+str(corrida_actual)+"_para_"+estrategia+".jpg")
 
 def graph_resumen_corridas(datos,estrategia):
+    mpl.style.use("default")
     nro_tiradas_eje_x=[x for x in range(nro_iteraciones+1)]
     f=plt.figure()
     for x in range (len(datos)):
-        plt.plot(nro_tiradas_eje_x[:len(datos[x])],datos[x],label="fc"+str(x),color="red")
+        plt.plot(nro_tiradas_eje_x[:len(datos[x])],datos[x],label="fc"+str(x),color="C"+str(x%10+1))
     if tipo_capital=="f":
         plt.axhline(y=banca, color='b', linestyle='-')
     plt.xlabel("numero de tiradas") 
