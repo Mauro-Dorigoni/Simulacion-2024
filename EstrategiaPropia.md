@@ -1,11 +1,10 @@
-Apuesta mininma 3500
 # Estrategia Propia
 ## Funcionamiento de la estrategia de la proporción constante
 La estrategia de la proporción constante es muy parecida a la de la apuesta constante, pero con un elemento adicional. Cuando se utiliza la estrategia de la apuesta constante, el importe apostado es el mismo tanto si el jugador gana como si pierde. Sin embargo, la estrategia de la proporción constante utiliza importes de apuesta variables que cambian según los resultados previos.
 
 Por lo tanto, si un jugador tiene una buena racha y está ganando, el importe de la apuesta aumentará para que pueda ganar aún más. Pero si está perdiendo dinero, el importe de la apuesta se reducirá lentamente y sus pérdidas potenciales no aumentarán tan rápido como si utilizara la estrategia de la apuesta constante. Este mecanismo autorregulador es lo que hace que la estrategia de la proporción constante sea un poco más avanzada que la estrategia de la apuesta constante.
 
- EJEMPLO
+EJEMPLO
 Para que todo quede muy claro, vamos a ver un ejemplo de la estrategia de la proporción constante en acción. Imaginemos que el jugador quiere apostar un 10% de su presupuesto en una apuesta de color. Empieza con 100 $ y hace una apuesta de 10 $ al rojo. Si gana, tendrá 110 $ y en la siguiente ronda apostará 11 $. Si pierde, se quedará con 90 $ y en la siguiente ronda solo apostará 9 $. El jugador debe seguir este patrón de apuestas hasta que se quede sin dinero o decida dejar de jugar.
 
 Al igual de lo que sucede con la estrategia de la apuesta constante, en la estrategia de la proporción constante también hay que encontrar un equilibrio entre:
