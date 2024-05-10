@@ -14,6 +14,7 @@ Idem link mandado por profesor (tanto banca finita como infinita)
 - El jugador comienza apostando el 10% de su banca (redondeada al entero mas cercano) al numero ingresado en el llamado al programa
 - Tanto como si pierde como si gana, continua apostando el 10% de su banca resultante (redondeada al entero mas cercano) al mismo numero
 - Si en algun momento la banca resultante es menor a 10 (diez) unidades monetarias, el jugador apuesta 1 (una) unidad monetaria
+
 **Para banca infinita:**
 - El jugador comienza apostando 1 (una) unidad monetaria al numero ingresado en el llamado al programa
 - Tanto como si pierde como si gana, continua apostando el 1 (una) unidad monetaria al mismo numero, a menos que logre una banca resultante de valor absoluto mayor a 10. En este caso, comienza a apostar el 10% del valor absoluto de su banca resultante (redondeada al entero mas cercano).
