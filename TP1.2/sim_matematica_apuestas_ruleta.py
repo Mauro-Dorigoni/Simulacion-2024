@@ -7,6 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 negro=[15,4,2,17,6,13,11,8,10,24,33,20,31,22,29,28,35,26]
+banca=100
 
 #compurebo que el programa en CLI se use como se debe#
 if  (len(sys.argv)!=11) or sys.argv[1]!="-c" or sys.argv[3]!="-n" or sys.argv[5]!="-e" or sys.argv[7]!="-s" or sys.argv[9]!="-a" or (sys.argv[8] not in ["m","d","f","o"]) or (sys.argv[10] not in ["i","f"]):
@@ -19,7 +20,6 @@ nro_iteraciones=int(sys.argv[4])
 nro_elegido=int(sys.argv[6])
 estrategia=(sys.argv[8])
 tipo_capital=(sys.argv[10])
-banca=10
 
 #Funcion para graficar el flujo de caja en 1 corrida#
 def graph_flujo_caja(flujo_caja,corrida_actual,estrategia):
@@ -245,16 +245,16 @@ def nosabemos(estrategia):
     datos=[[0 for x in range(nro_iteraciones+1)] for f in range(nro_corridas)]
     for x in range(nro_corridas):
         if estrategia=="m":
-            datos[x]=martingala(nro_iteraciones,tipo_capital,10,x)
+            datos[x]=martingala(nro_iteraciones,tipo_capital,banca,x)
             str_par="martingala"
         elif estrategia=="d":
-            datos[x]=dalambert(nro_iteraciones,tipo_capital,10,x)
+            datos[x]=dalambert(nro_iteraciones,tipo_capital,banca,x)
             str_par="dalambert"
         elif estrategia=="f":
-            datos[x]=fibonacci(nro_iteraciones,tipo_capital,10,x)
+            datos[x]=fibonacci(nro_iteraciones,tipo_capital,banca,x)
             str_par="fibonacci"
         elif estrategia=="o":
-            datos[x]=proporcion_constante(nro_iteraciones,tipo_capital,nro_elegido,10,x)
+            datos[x]=proporcion_constante(nro_iteraciones,tipo_capital,nro_elegido,banca,x)
             str_par="propcte"
         else: 
             print("algo salio mal")
