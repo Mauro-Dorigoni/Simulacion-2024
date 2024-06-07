@@ -11,7 +11,6 @@ if len(sys.argv)!=5 or sys.argv[1]!="-s" or sys.argv[3]!="-n":
     sys.exit(1)
 semilla_inicial=int(sys.argv[2])
 corridas=int(sys.argv[4])
-
 sem_ini=str(semilla_inicial)
 
 def bitmap(resultados,metodo,semilla):
@@ -32,7 +31,6 @@ def bitmap(resultados,metodo,semilla):
     img.save('bitmap_'+metodo+'_semilla_'+semilla+'.png')
 
 
-
 def glc(semilla):
     a = 1664525
     c = 1013904223
@@ -49,6 +47,7 @@ def vonNewman (semilla):
     n_rand=(int(s_str[2:6]))
     return n_rand
 
+
 def merseneTwister(semilla):
     random.seed(semilla)
     return random.random()
@@ -62,6 +61,10 @@ for x in range(corridas):
     semilla=glc(semilla*(m -1))
 bitmap(resultados,'glc',sem_ini)
 
+
+def prueba_bondad_ajuste(resultados):
+    intervalos=64
+    
 
 resultados=[(0.0000) for x in range(corridas)]
 semilla=semilla_inicial
