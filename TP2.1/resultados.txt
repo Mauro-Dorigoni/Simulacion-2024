@@ -1,0 +1,13 @@
+
+El metodo glc pasa la prueba de chi cuadrado
+El metodo glc pasa la prueba de corridas
+El metodo glc no pasa la prueba de sumas superpuestas
+El metodo glc pasa la prueba de reverse arrangements
+El metodo mt pasa la prueba de chi cuadrado
+El metodo mt pasa la prueba de corridas
+El metodo mt no pasa la prueba de sumas superpuestas
+El metodo mt pasa la prueba de reverse arrangements
+El metodo vonNewman no pasa la prueba de chi cuadrado
+El metodo vonNewman pasa la prueba de corridas
+El metodo vonNewman no pasa la prueba de sumas superpuestas
+El metodo vonNewman pasa la prueba de reverse arrangements
