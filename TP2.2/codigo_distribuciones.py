@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import numpy as np
 import scipy.special as sp
+from scipy.stats import norm
 
 
 #Definicion de variables necesarias#
@@ -254,8 +255,40 @@ def metodo_rechazo_empirica_discreta(valores, probabilidades, n):
     return resultados
 
 
+#Funcion inversa de distribucion Uniforme#
+def calcular_probabilidad_uniforme(inferior, superior, numeros):
+    probabilidad = 1 / (superior - inferior)
+    probabilidades = [((x - inferior) / (superior - inferior)) * probabilidad for x in numeros]
+    return probabilidades
+
+def inversa_uniforme(inferior, superior, probabilidades):
+    inversa=[]
+    for x in range(len(probabilidades)):
+        inversa[x]=inferior+probabilidades[x]*(superior-inferior)
+    return inversa
+
+#Funcion inversa de distribucion Exponencial#
+def calcular_probabilidad_acumulada_exponencial(numeros, lambde):
+    probabilidades_acumuladas = [1 - np.exp(-lambde * x) for x in numeros]
+    return probabilidades_acumuladas
+
+def inversa_exponencial(lambde, probabilidades_acumuladas):
+    inversa=[]
+    for x in range(len(probabilidades_acumuladas)):
+        inversa[x]=-1 / lambde * np.log(1 - probabilidades_acumuladas[x])
+    return inversa
 
 
+#Funcion inversa de distribucion Normal#
+def calcular_probabilidad_acumulada_normal(valores, mu, sigma):
+    probabilidades_acumuladas = [norm.cdf(x, loc=mu, scale=sigma) for x in valores]
+    return probabilidades_acumuladas
+
+def calcular_inversa_normal(probabilidades_acumuladas, mu, sigma):
+    inversa=[]
+    for x in range(len(probabilidades_acumuladas)):
+        inversa[x]=norm.ppf(probabilidades_acumuladas[x], loc=mu, scale=sigma)
+    return inversa
 
 
 
