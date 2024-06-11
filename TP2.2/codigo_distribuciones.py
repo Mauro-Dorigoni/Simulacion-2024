@@ -2,6 +2,8 @@ import random
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import numpy as np
+import scipy.special as sp
+
 
 #Definicion de variables necesarias#
 inferior=1
@@ -121,6 +123,135 @@ def dist_ed(n):
         numeros_dist_ed[x]=numero_dist_ed(val,prob)
     return(numeros_dist_ed)
 
+
+
+
+
+
+#Metodo de rechazo de distribucion Uniforme#
+def densidad_objetivo(x):
+    return 2 * x if 0 <= x <= 1 else 0
+
+def metodo_rechazo_uniforme(inferior, superior, M, n):
+    resultados = []
+    while len(resultados) < n:
+        x = numero_dist_uniforme(inferior,superior)
+        y = numero_dist_uniforme(inferior,superior)
+        if y <= densidad_objetivo(x):
+            resultados.append(x)
+    return resultados
+
+#Metodo de rechazo de distribucion Exponencial#
+def densidad_exponencial(x, lambd):
+    return lambd * np.exp(-lambd * x)
+
+def metodo_rechazo_exponencial(lambd, M, n):
+    resultados = []
+    while len(resultados) < n:
+        x = numero_dist_uniforme(0, 10 / lambd)
+        y = numero_dist_uniforme(0, M)
+        if y <= densidad_exponencial(x, lambd):
+            resultados.append(x)
+    return resultados
+
+#Metodo de rechazo de distribucion Gamma#
+def densidad_gamma(x, alpha, beta):
+    if x < 0:
+        return 0
+    return (beta**alpha * x**(alpha-1) * np.exp(-beta * x)) / sp.gamma(alpha)
+
+def metodo_rechazo_gamma(alpha, beta, n):
+    resultados = []
+    M = (alpha - 1)**(alpha - 1) * np.exp(1 - alpha)
+    while len(resultados) < n:
+        x = np.random.uniform(0, 10 * alpha)
+        y = np.random.uniform(0, M)
+        if y <= densidad_gamma(x, alpha, beta):
+            resultados.append(x)
+    return resultados
+
+
+#Metodo de rechazo de distribucion Normal#
+def densidad_normal(x, mu, sigma):
+    return 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((x - mu) / sigma)**2)
+
+def metodo_rechazo_normal(mu, sigma, n):
+    resultados = []
+    M = 1 / (sigma * np.sqrt(2 * np.pi))
+    while len(resultados) < n:
+        x = np.random.uniform(mu - 5 * sigma, mu + 5 * sigma)
+        y = np.random.uniform(0, M)
+        if y <= densidad_normal(x, mu, sigma):
+            resultados.append(x)
+    return resultados
+
+#Metodo de rechazo de distribucion Pascal#
+def pmf_pascal(k, r, p):
+
+    return stats.binom.pmf(k, r, p)
+
+def metodo_rechazo_pascal(r, p, n):
+    resultados = []
+    M = max(pmf_pascal(k, r, p) for k in range(r, r + 10))
+    while len(resultados) < n:
+        k = np.random.negative_binomial(r, p)
+        y = np.random.uniform(0, M)
+        if y <= pmf_pascal(k, r, p):
+            resultados.append(k)
+    return resultados
+
+#Metodo de rechazo de distribucion Binomial#
+def pmf_binomial(k, n, p):
+    return stats.binom.pmf(k, n, p)
+
+def metodo_rechazo_binomial(n, p, n_generados):
+    resultados = []
+    M = max(pmf_binomial(k, n, p) for k in range(n + 1))
+    while len(resultados) < n_generados:
+        k = np.random.binomial(n, p)
+        y = np.random.uniform(0, M)
+        if y <= pmf_binomial(k, n, p):
+            resultados.append(k)
+    return resultados
+
+#Metodo de rechazo de distribucion Hipergeometrica#
+def pmf_hipergeometrica(k, N1, N2, n):
+    return stats.hypergeom.pmf(k, N1, N2, n)
+
+def metodo_rechazo_hipergeometrica(N1, N2, n, n_generados):
+    resultados = []
+    M = max(pmf_hipergeometrica(k, N1, N2, n) for k in range(max(0, n - (N1 - N2)), min(N2, n) + 1))
+    while len(resultados) < n_generados:
+        k = np.random.hypergeometric(N1, N2, n)
+        y = np.random.uniform(0, M)
+        if y <= pmf_hipergeometrica(k, N1, N2, n):
+            resultados.append(k)
+    return resultados
+
+#Metodo de rechazo de distribucion Poisson#
+def pmf_poisson(k, lmbda):
+    return np.exp(-lmbda) * (lmbda ** k) / np.math.factorial(k)
+
+def metodo_rechazo_poisson(lmbda, n):
+    resultados = []
+    M = max(pmf_poisson(k, lmbda) for k in range(int(lmbda * 3)))
+    while len(resultados) < n:
+        k = np.random.poisson(lmbda)
+        y = np.random.uniform(0, M)
+        if y <= pmf_poisson(k, lmbda):
+            resultados.append(k)
+    return resultados
+
+#Metodo de rechazo de distribucion Empirica Discreta#
+def metodo_rechazo_empirica_discreta(valores, probabilidades, n):
+    resultados = []
+    M = max(probabilidades)
+    while len(resultados) < n:
+        candidato = np.random.choice(valores, p=probabilidades)
+        y = np.random.uniform(0, M)
+        if y <= probabilidades[valores.index(candidato)]:
+            resultados.append(candidato)
+    return resultados
 
 
 
