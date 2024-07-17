@@ -4,18 +4,32 @@ Media de tiempo entre entre arribos 0.5 minutos
 Media de tiempo de servicio 0.5 minutos
 Numero de clientes 10
 
+Resultados para corrida numero: 1 --------------------------------------------------
 
-Tiempo promedio de demora en cola 4.293798747771074 minutos
+Tiempo promedio de demora en cola 2.3248418306205147 minutos
 
+Numero promedio en cola 1.147885707188457
 
+Utilizacion del servidor 0.6363212848948454
 
-Numero promedio en cola 2.749668029392355
+Tiempo de simulacion finalizada 39.13896675136509 minutos
 
+Resultados para corrida numero: 2 --------------------------------------------------
 
+Tiempo promedio de demora en cola 0.16292657538013575 minutos
 
-Utilizacion del servidor 0.7196887238048164
+Numero promedio en cola 0.05202190904209972
 
+Utilizacion del servidor 0.4027902245659841
 
+Tiempo de simulacion finalizada 31.318838231846573 minutos
 
-Tiempo de simulacion finalizada 21.670939846273242 minutos
+Resultados para corrida numero: 3 --------------------------------------------------
 
+Tiempo promedio de demora en cola 2.787402040245574 minutos
+
+Numero promedio en cola 1.362720034905124
+
+Utilizacion del servidor 0.6402338117368336
+
+Tiempo de simulacion finalizada 27.99548076043666 minutos

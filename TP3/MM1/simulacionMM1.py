@@ -1,4 +1,7 @@
 import random
+import array as arr
+import statistics
+import math
 import sys
 import matplotlib.pyplot as plt
 
@@ -7,12 +10,13 @@ LIMITE_COLA = 100
 OCUPADO = 1
 LIBRE = 0
 
-if len(sys.argv)!=7 or sys.argv[1]!="-m" or sys.argv[3]!="-s" or sys.argv[5]!="-n":
-    print("Uso: python simulacionMM1.py -m <media_intervalo_arrivos> -s <media_tiempo_servicio> -n <numero_atrasos_necesario>")
+if len(sys.argv)!=9 or sys.argv[1]!="-m" or sys.argv[3]!="-s" or sys.argv[5]!="-n" or sys.argv[7]!="-i":
+    print("Uso: python simulacionMM1.py -m <media_intervalo_arrivos> -s <media_tiempo_servicio> -n <numero_atrasos_necesario> -i <numero_corridas>")
     sys.exit(1)
 media_intarvalo_arrivos = float(sys.argv[2])
 media_tiempo_servicio = float(sys.argv[4])
 num_atrasos_necesarios = int(sys.argv[6])
+nro_corridas = int(sys.argv[8])
 
 tipo_proximo_evento, num_cli_atrasados, num_eventos, num_en_cola, estado_servidor = 0, 0, 0, 0, 0
 area_num_en_cola, area_estado_servidor, tiempo_simulacion, total_retrasos = 0.0, 0.0, 0.0, 0.0
@@ -94,11 +98,12 @@ def salida():
             tiempo_arribo[i] = tiempo_arribo[i + 1]
 
 #-------------------------------------------------------------------------------------------------#
-def reporte():
-    f.write("\n\nTiempo promedio de demora en cola "+str(total_retrasos/num_cli_atrasados)+" minutos\n\n")
-    f.write("\n\nNumero promedio en cola "+str(area_num_en_cola/tiempo_simulacion)+"\n\n")
-    f.write("\n\nUtilizacion del servidor "+str(area_estado_servidor/tiempo_simulacion)+"\n\n")
-    f.write("\n\nTiempo de simulacion finalizada "+str(tiempo_simulacion)+" minutos\n\n")
+def reporte(x):
+    f.write("\nResultados para corrida numero: "+str(x+1)+" --------------------------------------------------\n")
+    f.write("\nTiempo promedio de demora en cola "+str(total_retrasos/num_cli_atrasados)+" minutos\n")
+    f.write("\nNumero promedio en cola "+str(area_num_en_cola/tiempo_simulacion)+"\n")
+    f.write("\nUtilizacion del servidor "+str(area_estado_servidor/tiempo_simulacion)+"\n")
+    f.write("\nTiempo de simulacion finalizada "+str(tiempo_simulacion)+" minutos\n")
 
 #-------------------------------------------------------------------------------------------------#
 def actualizacion_tiempo_prom_estadisticas():
@@ -120,24 +125,34 @@ f.write("Sistema de colas con unico servidor\n\n")
 f.write("Media de tiempo entre entre arribos " + str(media_intarvalo_arrivos) + " minutos\n")
 f.write("Media de tiempo de servicio " + str(media_tiempo_servicio) + " minutos\n")
 f.write("Numero de clientes " + str(num_atrasos_necesarios) + "\n")
-inicializar()
-while(num_cli_atrasados < num_atrasos_necesarios):
-    eje_x.append(tiempo_simulacion)
-    eje_y.append(num_en_cola)
-    eje_y_serv.append(estado_servidor)
-    temporizador()
-    actualizacion_tiempo_prom_estadisticas()
-    if(tipo_proximo_evento == 1):
-        arribo()
-        
-    elif(tipo_proximo_evento == 2):
-        salida()
-    i = i + 1   
-reporte()
 t = plt.figure(1)
-plt.step(eje_x,eje_y)
-t.savefig("grafica_numero_clientes_en_cola.jpg")
 t2 = plt.figure(2)
-plt.step(eje_x, eje_y_serv)
+for x in range(nro_corridas):
+    eje_x = []  
+    eje_y = []
+    eje_y_serv = []
+    inicializar()
+    while(num_cli_atrasados < num_atrasos_necesarios):
+        eje_x.append(tiempo_simulacion)
+        eje_y.append(num_en_cola)
+        eje_y_serv.append(estado_servidor)
+        temporizador()
+        actualizacion_tiempo_prom_estadisticas()
+        if(tipo_proximo_evento == 1):
+            arribo()
+            
+        elif(tipo_proximo_evento == 2):
+            salida()
+        i = i + 1   
+    reporte(x)
+    plt.figure(1)
+    plt.step(eje_x,eje_y, color = "C" + str(x % 10), label = "corrida nro"+str(x))
+    plt.figure(2)
+    plt.step(eje_x,eje_y_serv, color = "C" + str(x % 10), label = "corrida nro"+str(x))
+plt.figure(1)
+plt.legend()
+t.savefig("grafica_numero_clientes_en_cola.jpg")
+plt.figure(2)
+plt.legend()
 t2.savefig("grafica_ocupacion_servidor.jpg")
 f.close()
