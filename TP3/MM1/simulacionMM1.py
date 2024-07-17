@@ -111,6 +111,10 @@ def actualizacion_tiempo_prom_estadisticas():
 #-------------------------------------------------------------------------------------------------#
 #main#
 f = open("reporte.txt", "w")
+i=0
+eje_x = []
+eje_y = []
+eje_y_serv = []
 num_eventos = 2
 f.write("Sistema de colas con unico servidor\n\n")
 f.write("Media de tiempo entre entre arribos " + str(media_intarvalo_arrivos) + " minutos\n")
@@ -118,6 +122,9 @@ f.write("Media de tiempo de servicio " + str(media_tiempo_servicio) + " minutos\
 f.write("Numero de clientes " + str(num_atrasos_necesarios) + "\n")
 inicializar()
 while(num_cli_atrasados < num_atrasos_necesarios):
+    eje_x.append(tiempo_simulacion)
+    eje_y.append(num_en_cola)
+    eje_y_serv.append(estado_servidor)
     temporizador()
     actualizacion_tiempo_prom_estadisticas()
     if(tipo_proximo_evento == 1):
@@ -125,6 +132,12 @@ while(num_cli_atrasados < num_atrasos_necesarios):
         
     elif(tipo_proximo_evento == 2):
         salida()
-        
+    i = i + 1   
 reporte()
+t = plt.figure(1)
+plt.step(eje_x,eje_y)
+t.savefig("grafica_numero_clientes_en_cola.jpg")
+t2 = plt.figure(2)
+plt.step(eje_x, eje_y_serv)
+t2.savefig("grafica_ocupacion_servidor.jpg")
 f.close()
