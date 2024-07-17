@@ -6,10 +6,36 @@ import sys
 import matplotlib.pyplot as plt
 
 #-------------------------------------------------------------------------------------------------#
-cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls = 0
-area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido = 0.0
+if len(sys.argv)!=25 or sys.argv[1]!="-a" or sys.argv[3]!="-b" or sys.argv[5]!="-c" or sys.argv[7]!="-d" or sys.argv[9]!="-e" or sys.argv[11]!="-f" or sys.argv[13]!="-g" or sys.argv[15]!="-h" or sys.argv[17]!="-i" or sys.argv[19]!="-j" or sys.argv[21]!="-k" or sys.argv[23]!="-l":
+    print("Uso: python simulacion_inventario.py -a <nivel inicial de inventario> -b <meses por pedido> -c <num_policies> -d <valores de demanda> -e <media intervalo demanda> -f <costo de setup> -g <costo incremental> -h <costo de mantenimiento> -i <costo por faltante> -j <minlag> -k <maxlag> -l <numero de corridas>")
+    sys.exit(1)
+
+nivel_inv_inicial = int(sys.argv[2])
+num_meses = int(sys.argv[4])
+num_policies = int(sys.argv[6])
+num_valores_demanda = int(sys.argv[8])
+media_intervalo_demanda = float(sys.argv[10])
+costo_setup = float(sys.argv[12])
+costo_incremental = float(sys.argv[14])
+costo_mantenimiento = float(sys.argv[16])
+costo_faltante = float(sys.argv[18])
+minlag = float(sys.argv[20])
+maxlag = float(sys.argv[22])
+nro_corridas = int(sys.argv[24])
+
+
+cantidad, bigs , nivel_inv, tipo_proximo_evento, num_eventos,  smalls = 0, 0, 0, 0, 0, 0
+area_mantenimiento, area_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido = 0.0, 0.0, 0.0, 0.0, 0.0
 prob_distrib_demanda = [0.0]*26
 tiempo_proximo_evento = [0.0]*5
+
+#-------------------------------------------------------------------------------------------------#
+def random_integer(prob_distrib):
+    u = random.random()
+    for i in range(1, len(prob_distrib)):
+        if u < prob_distrib[i]:
+            return i
+    return len(prob_distrib)
 
 #-------------------------------------------------------------------------------------------------#
 def inicializar():
@@ -30,28 +56,123 @@ def inicializar():
     tiempo_proximo_evento[2] = tiempo_simulacion + random.expovariate(media_intervalo_demanda)
     tiempo_proximo_evento[3] = num_meses
     tiempo_proximo_evento[4] = 0.0
-    
+
 #-------------------------------------------------------------------------------------------------#
 def temporizador():
-    print("n")
+    global tiempo_simulacion, tipo_proximo_evento
+    global tiempo_proximo_evento
+    min_tiempo_proximo_evento = 1.0e+29
+    tipo_proximo_evento = 0
+
+    for i in range(1, num_eventos + 1):
+        if(tiempo_proximo_evento[i] < min_tiempo_proximo_evento):
+            min_tiempo_proximo_evento = tiempo_proximo_evento[i]
+            tipo_proximo_evento = i
+
+    if(tipo_proximo_evento == 0):
+        f.write("\nLista de Eventos vacia en tiempo"+str(tiempo_simulacion))
+        sys.exit(1)
+    
+    tiempo_simulacion = min_tiempo_proximo_evento
 
 #-------------------------------------------------------------------------------------------------#
 def llegada_pedido():
-    print("n")
+    global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
+    global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+    
+    nivel_inv = nivel_inv + cantidad
+    tiempo_proximo_evento[1] = 1.0e+30
 
 #-------------------------------------------------------------------------------------------------#
 def demanda():
-    print("n")
+    global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
+    global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+
+    nivel_inv = nivel_inv - random_integer(prob_distrib_demanda)
+
+    tiempo_proximo_evento[2] = tiempo_simulacion + random.expovariate(media_intervalo_demanda) 
 
 #-------------------------------------------------------------------------------------------------#
 def evaluacion():
-    print("n")
+    global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
+    global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+    if(nivel_inv < smalls):
+        cantidad = bigs - nivel_inv
+        costo_total_pedido = costo_total_pedido + costo_setup + costo_incremental*cantidad
+
+        tiempo_proximo_evento[1] = tiempo_simulacion + random.uniform(minlag, maxlag)
+    
+    tiempo_proximo_evento[4] = tiempo_simulacion + 1.0
 
 #-------------------------------------------------------------------------------------------------#
 def reporte():
-    print("n")
+    global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
+    global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+
+    costo_promedio_pedido = costo_total_pedido / num_meses
+    costo_promedio_mantenimiento = costo_mantenimiento * area_mantenimiento / num_meses
+    costo_promedio_faltante = costo_faltante * area_faltante / num_meses
+
+    f.write("\nMaximo inventario: " + str(bigs) + "\n")
+    f.write("\nMinimo inventario: " + str(smalls) + "\n")
+    f.write("\nCosto total promedio: " + str(costo_promedio_faltante + costo_promedio_pedido + costo_promedio_mantenimiento) + "\n")
+    f.write("\nCosto promedio de pedido: " + str(costo_promedio_pedido) + "\n")
+    f.write("\nCosto promedio de mantenimiento: " + str(costo_promedio_mantenimiento) + "\n")
+    f.write("\nCosto promedio de faltante: " + str(costo_promedio_faltante) + "\n")
+    f.write("---------------------------------------------------------------------------")
 
 #-------------------------------------------------------------------------------------------------#
 def actualizacion_tiempo_prom_estadisticas():
-    print("n")
+    global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
+    global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+    tiempo_desde_ultimo_evento = tiempo_simulacion - tiempo_ultimo_evento
+    tiempo_ultimo_evento = tiempo_simulacion
+
+    if(nivel_inv < 0):
+        area_faltante = area_faltante - nivel_inv * tiempo_desde_ultimo_evento
+    elif(nivel_inv > 0):
+        area_mantenimiento = area_mantenimiento + nivel_inv * tiempo_desde_ultimo_evento
+
+
+#-------------------------------------------------------------------------------------------------#
+num_eventos = 4
+
+f=open("reporte.txt","w")
+
+for x in range (num_valores_demanda):
+    print("Ingrese el valor de probabilidad de demanda " + str(x + 1) + "\n")
+    prob_distrib_demanda[x] = float(input())
+
+f.write("Sistema de inventario de un solo producto\n\n")
+f.write("Cantidad de inventario inicial: " + str(nivel_inv_inicial) + "\n\n")
+f.write("Numero de tamaños de demanda: " + str(num_valores_demanda) + "\n\n")
+f.write("Distribucion de tamaños de demanda: " + str(prob_distrib_demanda) + "\n\n")
+f.write("Media de intervalo de demanda: " + str(media_intervalo_demanda) + "\n\n")
+f.write("Demora de envio de " + str(minlag) + " a " + str(maxlag) + "meses\n\n")
+f.write("Largo de la simulacion: " + str(num_meses) + "meses\n\n")
+f.write("K= " + str(costo_setup) + " i= " +str(costo_incremental)+ " h= " +str(costo_mantenimiento)+" pi= "+str(costo_faltante)+ "\n\n")
+f.write("Numero de politicas: " + str(num_policies) + "\n\n")
+
+for x in range(num_policies):
+    print("Ingrese el valor de smalls: \n")
+    smalls = int(input())
+    print("Ingrese el valor de bigs: \n")
+    bigs = int(input())
+    inicializar()
+
+    while True:
+        temporizador()
+        actualizacion_tiempo_prom_estadisticas()
+        if(tipo_proximo_evento == 1):
+            llegada_pedido()
+        elif(tipo_proximo_evento == 2):
+            demanda()
+        elif(tipo_proximo_evento == 4):
+            evaluacion()
+        elif(tipo_proximo_evento == 3):
+            reporte()
+        if(tipo_proximo_evento == 3):
+            break
+
+f.close()
 
