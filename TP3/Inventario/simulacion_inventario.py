@@ -153,7 +153,13 @@ f.write("Largo de la simulacion: " + str(num_meses) + "meses\n\n")
 f.write("K= " + str(costo_setup) + " i= " +str(costo_incremental)+ " h= " +str(costo_mantenimiento)+" pi= "+str(costo_faltante)+ "\n\n")
 f.write("Numero de politicas: " + str(num_policies) + "\n\n")
 
+t = plt.figure(1)
+
 for x in range(num_policies):
+    eje_x = []
+    eje_y_inv = []
+    eje_y_inv_pos = []
+    eje_y_inv_neg = []
     print("Ingrese el valor de smalls: \n")
     smalls = int(input())
     print("Ingrese el valor de bigs: \n")
@@ -171,8 +177,23 @@ for x in range(num_policies):
             evaluacion()
         elif(tipo_proximo_evento == 3):
             reporte()
+        
+        eje_x.append(tiempo_simulacion)
+        eje_y_inv.append(nivel_inv)
+        eje_y_inv_pos.append(max(nivel_inv,0))
+        eje_y_inv_neg.append(max(nivel_inv*(-1), 0))
+
         if(tipo_proximo_evento == 3):
             break
+    
+    plt.figure(1)
+    plt.step(eje_x, eje_y_inv, color = "red", label = "I")
+    plt.step(eje_x, eje_y_inv_neg, color = "blue", label = "I-")
+    plt.step(eje_x, eje_y_inv_pos, color = "green", label = "I+")
+    plt.figure(1)
+    plt.legend()
+    t.savefig("nivel_inventario_politica_("+str(smalls)+", "+str(bigs)+").jpg")
+    
 
 f.close()
 
