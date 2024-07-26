@@ -105,7 +105,7 @@ def evaluacion():
     tiempo_proximo_evento[4] = tiempo_simulacion + 1.0
 
 #-------------------------------------------------------------------------------------------------#
-def reporte():
+def reporte(corrida):
     global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
     global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
 
@@ -115,6 +115,7 @@ def reporte():
 
     f.write("\nMaximo inventario: " + str(bigs) + "\n")
     f.write("\nMinimo inventario: " + str(smalls) + "\n")
+    f.write("\nCorrida numero: "+str(corrida+1)+"\n")
     f.write("\nCosto total promedio: " + str(costo_promedio_faltante + costo_promedio_pedido + costo_promedio_mantenimiento) + "\n")
     f.write("\nCosto promedio de pedido: " + str(costo_promedio_pedido) + "\n")
     f.write("\nCosto promedio de mantenimiento: " + str(costo_promedio_mantenimiento) + "\n")
@@ -148,52 +149,75 @@ f.write("Cantidad de inventario inicial: " + str(nivel_inv_inicial) + "\n\n")
 f.write("Numero de tamaños de demanda: " + str(num_valores_demanda) + "\n\n")
 f.write("Distribucion de tamaños de demanda: " + str(prob_distrib_demanda) + "\n\n")
 f.write("Media de intervalo de demanda: " + str(media_intervalo_demanda) + "\n\n")
-f.write("Demora de envio de " + str(minlag) + " a " + str(maxlag) + "meses\n\n")
-f.write("Largo de la simulacion: " + str(num_meses) + "meses\n\n")
+f.write("Demora de envio de " + str(minlag) + " a " + str(maxlag) + " meses\n\n")
+f.write("Largo de la simulacion: " + str(num_meses) + " meses\n\n")
 f.write("K= " + str(costo_setup) + " i= " +str(costo_incremental)+ " h= " +str(costo_mantenimiento)+" pi= "+str(costo_faltante)+ "\n\n")
 f.write("Numero de politicas: " + str(num_policies) + "\n\n")
-
-t = plt.figure(1)
+f.write("---------------------------------------------------------------------------")
 
 for x in range(num_policies):
     eje_x = []
     eje_y_inv = []
     eje_y_inv_pos = []
     eje_y_inv_neg = []
+    referencia = []
     print("Ingrese el valor de smalls: \n")
     smalls = int(input())
     print("Ingrese el valor de bigs: \n")
     bigs = int(input())
-    inicializar()
 
-    while True:
-        temporizador()
-        actualizacion_tiempo_prom_estadisticas()
-        if(tipo_proximo_evento == 1):
-            llegada_pedido()
-        elif(tipo_proximo_evento == 2):
-            demanda()
-        elif(tipo_proximo_evento == 4):
-            evaluacion()
-        elif(tipo_proximo_evento == 3):
-            reporte()
+    for i in range(nro_corridas):
+        inicializar()
+        eje_x = []
+        eje_y_inv = []
+        eje_y_inv_pos = []
+        eje_y_inv_neg = []
+        referencia = []
+        plt.figure(1)
+        plt.figure(2)
+        plt.figure(3)
+        while True:
+            temporizador()
+            actualizacion_tiempo_prom_estadisticas()
+            if(tipo_proximo_evento == 1):
+                llegada_pedido()
+            elif(tipo_proximo_evento == 2):
+                demanda()
+            elif(tipo_proximo_evento == 4):
+                evaluacion()
+            elif(tipo_proximo_evento == 3):
+                reporte(i)
+            
+            eje_x.append(tiempo_simulacion)
+            eje_y_inv.append(nivel_inv)
+            eje_y_inv_pos.append(max(nivel_inv,0))
+            eje_y_inv_neg.append(max(nivel_inv*(-1), 0))
+            referencia.append(0)
+
+            if(tipo_proximo_evento == 3):
+                break
         
-        eje_x.append(tiempo_simulacion)
-        eje_y_inv.append(nivel_inv)
-        eje_y_inv_pos.append(max(nivel_inv,0))
-        eje_y_inv_neg.append(max(nivel_inv*(-1), 0))
+        plt.figure(1)
+        plt.step(eje_x, eje_y_inv, color = "red", label = "I")
+        plt.plot(eje_x,referencia,color = "black", linestyle='dashed')
+        plt.legend()
+        plt.savefig("Graficas/nivel_inventario_politica_("+str(smalls)+", "+str(bigs)+")_corrida_"+str(i)+".jpg")
+        plt.clf()
 
-        if(tipo_proximo_evento == 3):
-            break
-    
-    plt.figure(1)
-    plt.step(eje_x, eje_y_inv, color = "red", label = "I")
-    plt.step(eje_x, eje_y_inv_neg, color = "blue", label = "I-")
-    plt.step(eje_x, eje_y_inv_pos, color = "green", label = "I+")
-    plt.figure(1)
-    plt.legend()
-    t.savefig("nivel_inventario_politica_("+str(smalls)+", "+str(bigs)+").jpg")
-    
+        plt.figure(2)
+        plt.plot(eje_x,referencia,color = "black", linestyle='dashed')
+        plt.step(eje_x, eje_y_inv_neg, color = "blue", label = "I-")
+        plt.legend()
+        plt.savefig("Graficas/nivel_inventarioNeg_politica_("+str(smalls)+", "+str(bigs)+")_corrida_"+str(i)+".jpg")
+        plt.clf()
 
+        plt.figure(3)
+        plt.plot(eje_x,referencia,color = "black", linestyle='dashed')
+        plt.step(eje_x, eje_y_inv_pos, color = "green", label = "I+")
+        plt.legend()
+        plt.savefig("Graficas/nivel_inventarioPos_politica_("+str(smalls)+", "+str(bigs)+")_corrida_"+str(i)+".jpg")
+        plt.clf()
+
+  
 f.close()
 
