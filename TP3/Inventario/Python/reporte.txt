@@ -1,0 +1,47 @@
+Sistema de inventario de un solo producto
+
+Cantidad de inventario inicial: 0
+
+Numero de tamaños de demanda: 4
+
+Distribucion de tamaños de demanda: [0.333, 0.5, 0.833, 1.0]
+
+Media de intervalo de demanda: 0.95
+
+Demora de envio de 0.5 a 1.0 meses
+
+Largo de la simulacion: 120 meses
+
+K= 32.0 i= 3.0 h= 1.0 pi= 5.0
+
+Numero de politicas: 1
+
+---------------------------------------------------------------------------
+Maximo inventario: 10
+
+Minimo inventario: 5
+
+Corrida numero: 1
+
+Costo total promedio: 24.206893303996164
+
+Costo promedio de pedido: 18.008333333333333
+
+Costo promedio de mantenimiento: 5.1679314530382685
+
+Costo promedio de faltante: 1.0306285176245622
+---------------------------------------------------------------------------
+Maximo inventario: 10
+
+Minimo inventario: 5
+
+Corrida numero: 2
+
+Costo total promedio: 26.928741482373717
+
+Costo promedio de pedido: 20.5
+
+Costo promedio de mantenimiento: 5.162799411135177
+
+Costo promedio de faltante: 1.2659420712385383
+---------------------------------------------------------------------------
