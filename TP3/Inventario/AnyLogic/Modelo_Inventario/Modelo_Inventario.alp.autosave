@@ -4444,7 +4444,7 @@ copyToClipboard( s );]]></ActionCode>
 					<Code><![CDATA[60]]></Code>
 				</Max>
 				<Step Class="CodeValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[20]]></Code>
 				</Step>
 			</Parameter>
 			<Parameter>	
@@ -4457,7 +4457,7 @@ copyToClipboard( s );]]></ActionCode>
 					<Code><![CDATA[100]]></Code>
 				</Max>
 				<Step Class="CodeValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[20]]></Code>
 				</Step>
 			</Parameter>
 			<ObjectiveFunctionCode><![CDATA[root.costo_total]]></ObjectiveFunctionCode>

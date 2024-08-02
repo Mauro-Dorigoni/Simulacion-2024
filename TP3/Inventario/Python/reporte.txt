@@ -2,9 +2,9 @@ Sistema de inventario de un solo producto
 
 Cantidad de inventario inicial: 0
 
-Numero de tamaños de demanda: 4
+Numero de tamaï¿½os de demanda: 4
 
-Distribucion de tamaños de demanda: [0.333, 0.5, 0.833, 1.0]
+Distribucion de tamaï¿½os de demanda: [0.333, 0.5, 0.833, 1.0]
 
 Media de intervalo de demanda: 0.95
 

@@ -6,7 +6,7 @@ import sys
 import matplotlib.pyplot as plt
 
 #-------------------------------------------------------------------------------------------------#
-LIMITE_COLA = 100
+LIMITE_COLA = 100000
 OCUPADO = 1
 LIBRE = 0
 
@@ -23,6 +23,7 @@ area_num_en_cola, area_estado_servidor, tiempo_simulacion, total_retrasos = 0.0,
 tiempo_ultimo_evento = 0.0
 tiempo_proximo_evento = [0.0]*3
 tiempo_arribo = [0.0]*(LIMITE_COLA + 1)
+resultados = [0.0]*4
 
 #-------------------------------------------------------------------------------------------------#
 def inicializar():
@@ -99,6 +100,11 @@ def salida():
 
 #-------------------------------------------------------------------------------------------------#
 def reporte(x):
+    global resultados
+    resultados[0] = resultados[0] + total_retrasos/num_cli_atrasados
+    resultados[1] = resultados[1] + area_num_en_cola/tiempo_simulacion
+    resultados[2] = resultados[2] + area_estado_servidor/tiempo_simulacion
+    resultados[3] = resultados[3] + tiempo_simulacion
     f.write("\nResultados para corrida numero: "+str(x+1)+" --------------------------------------------------\n")
     f.write("\nTiempo promedio de demora en cola "+str(total_retrasos/num_cli_atrasados)+" minutos\n")
     f.write("\nNumero promedio en cola "+str(area_num_en_cola/tiempo_simulacion)+"\n")
@@ -155,4 +161,10 @@ t.savefig("grafica_numero_clientes_en_cola.jpg")
 plt.figure(2)
 plt.legend()
 t2.savefig("grafica_ocupacion_servidor.jpg")
+f.write("Resultados Promedio --------------------\n")
+f.write("\nTiempo promedio de demora en cola "+str(resultados[0]/nro_corridas)+" minutos\n")
+f.write("\nNumero promedio en cola "+str(resultados[1]/nro_corridas)+"\n")
+f.write("\nUtilizacion del servidor "+str(resultados[2]/nro_corridas)+"\n")
+f.write("\nTiempo de simulacion finalizada "+str(resultados[3]/nro_corridas)+" minutos\n")
+
 f.close()
