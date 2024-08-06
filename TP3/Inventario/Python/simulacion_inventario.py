@@ -22,6 +22,10 @@ costo_faltante = float(sys.argv[18])
 minlag = float(sys.argv[20])
 maxlag = float(sys.argv[22])
 nro_corridas = int(sys.argv[24])
+costo_prom_faltante_total = 0.0
+costo_prom_pedido_total = 0.0
+costo_prom_mant_total = 0.0
+
 
 
 cantidad, bigs , nivel_inv, tipo_proximo_evento, num_eventos,  smalls = 0, 0, 0, 0, 0, 0
@@ -34,7 +38,8 @@ def random_integer(prob_distrib):
     u = random.random()
     for i in range(num_valores_demanda, 1, -1):
         if u < prob_distrib[i-1]:
-            dem = i
+            dem = i * 4
+
     return dem
 
 #-------------------------------------------------------------------------------------------------#
@@ -108,11 +113,17 @@ def evaluacion():
 def reporte(corrida):
     global cantidad, bigs, nivel_inv_inicial, nivel_inv, tipo_proximo_evento, num_eventos, num_meses, num_valores_demanda, smalls
     global area_mantenimiento, area_faltante, costo_mantenimiento, costo_incremental, maxlag, media_intervalo_demanda, minlag, costo_setup, costo_faltante, tiempo_simulacion, tiempo_ultimo_evento, costo_total_pedido
+    global costo_prom_faltante_total, costo_prom_mant_total, costo_prom_pedido_total
 
     costo_promedio_pedido = costo_total_pedido / num_meses
+    costo_prom_pedido_total = costo_prom_pedido_total + costo_promedio_pedido
     costo_promedio_mantenimiento = costo_mantenimiento * area_mantenimiento / num_meses
+    costo_prom_mant_total = costo_prom_mant_total + costo_promedio_mantenimiento
     costo_promedio_faltante = costo_faltante * area_faltante / num_meses
+    costo_prom_faltante_total = costo_prom_faltante_total + costo_promedio_faltante
+    
 
+    f.write("---------------------------------------------------------------------------")
     f.write("\nMaximo inventario: " + str(bigs) + "\n")
     f.write("\nMinimo inventario: " + str(smalls) + "\n")
     f.write("\nCorrida numero: "+str(corrida+1)+"\n")
@@ -120,7 +131,7 @@ def reporte(corrida):
     f.write("\nCosto promedio de pedido: " + str(costo_promedio_pedido) + "\n")
     f.write("\nCosto promedio de mantenimiento: " + str(costo_promedio_mantenimiento) + "\n")
     f.write("\nCosto promedio de faltante: " + str(costo_promedio_faltante) + "\n")
-    f.write("---------------------------------------------------------------------------")
+
 
 #-------------------------------------------------------------------------------------------------#
 def actualizacion_tiempo_prom_estadisticas():
@@ -155,6 +166,7 @@ f.write("K= " + str(costo_setup) + " i= " +str(costo_incremental)+ " h= " +str(c
 f.write("Numero de politicas: " + str(num_policies) + "\n\n")
 f.write("---------------------------------------------------------------------------")
 
+
 for x in range(num_policies):
     eje_x = []
     eje_y_inv = []
@@ -165,6 +177,9 @@ for x in range(num_policies):
     smalls = int(input())
     print("Ingrese el valor de bigs: \n")
     bigs = int(input())
+    costo_prom_faltante_total = 0.0
+    costo_prom_pedido_total = 0.0
+    costo_prom_mant_total = 0.0
 
     for i in range(nro_corridas):
         inicializar()
@@ -218,6 +233,12 @@ for x in range(num_policies):
         plt.savefig("Graficas/nivel_inventarioPos_politica_("+str(smalls)+", "+str(bigs)+")_corrida_"+str(i)+".jpg")
         plt.clf()
 
+    f.write("\n\n\nValores promedio de corrida: \n")
+    f.write("Costo total promedio de corrida: "+str((costo_prom_pedido_total+costo_prom_mant_total+costo_prom_faltante_total)/nro_corridas)+"\n")
+    f.write("Costo de pedido promedio de corrida: "+str(costo_prom_pedido_total/nro_corridas)+"\n")
+    f.write("Costo de mantenimiento promedio de corrida: "+str(costo_prom_mant_total/nro_corridas)+"\n")
+    f.write("Costo por faltante promedio de corrida: "+str(costo_prom_faltante_total/nro_corridas)+"\n")
+    f.write("---------------------------------------------------------------------------")
   
 f.close()
 

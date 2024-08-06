@@ -1,10 +1,10 @@
 Sistema de inventario de un solo producto
 
-Cantidad de inventario inicial: 0
+Cantidad de inventario inicial: 20
 
-Numero de tamaï¿½os de demanda: 4
+Numero de tamaños de demanda: 4
 
-Distribucion de tamaï¿½os de demanda: [0.333, 0.5, 0.833, 1.0]
+Distribucion de tamaños de demanda: [0.167, 0.5, 0.833, 1.0]
 
 Media de intervalo de demanda: 0.95
 
@@ -14,132 +14,154 @@ Largo de la simulacion: 120 meses
 
 K= 32.0 i= 3.0 h= 1.0 pi= 5.0
 
-Numero de politicas: 9
+Numero de politicas: 1
 
----------------------------------------------------------------------------
-Maximo inventario: 40
-
-Minimo inventario: 20
-
-Corrida numero: 1
-
-Costo total promedio: 39.07571150061399
-
-Costo promedio de pedido: 11.316666666666666
-
-Costo promedio de mantenimiento: 27.759044833947325
-
-Costo promedio de faltante: 0.0
----------------------------------------------------------------------------
-Maximo inventario: 60
-
-Minimo inventario: 20
-
-Corrida numero: 1
-
-Costo total promedio: 49.71504080310673
-
-Costo promedio de pedido: 11.183333333333334
-
-Costo promedio de mantenimiento: 38.452920522740975
-
-Costo promedio de faltante: 0.07878694703241963
----------------------------------------------------------------------------
-Maximo inventario: 80
-
-Minimo inventario: 20
-
-Corrida numero: 1
-
-Costo total promedio: 57.90128072111895
-
-Costo promedio de pedido: 9.858333333333333
-
-Costo promedio de mantenimiento: 48.02967706207887
-
-Costo promedio de faltante: 0.01327032570674877
----------------------------------------------------------------------------
-Maximo inventario: 100
-
-Minimo inventario: 20
-
-Corrida numero: 1
-
-Costo total promedio: 70.26876233900597
-
-Costo promedio de pedido: 9.766666666666667
-
-Costo promedio de mantenimiento: 60.45168494743748
-
-Costo promedio de faltante: 0.050410724901827964
----------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Maximo inventario: 60
 
 Minimo inventario: 40
 
 Corrida numero: 1
 
-Costo total promedio: 59.44410782530845
+Costo total promedio: 78.88183084405698
 
-Costo promedio de pedido: 10.825
+Costo promedio de pedido: 36.46666666666667
 
-Costo promedio de mantenimiento: 48.61910782530845
+Costo promedio de mantenimiento: 42.13843872301701
 
-Costo promedio de faltante: 0.0
+Costo promedio de faltante: 0.27672545437330126
 ---------------------------------------------------------------------------
-Maximo inventario: 80
+Maximo inventario: 60
 
 Minimo inventario: 40
 
-Corrida numero: 1
+Corrida numero: 2
 
-Costo total promedio: 69.38784504841625
+Costo total promedio: 84.06039467478618
 
-Costo promedio de pedido: 11.958333333333334
+Costo promedio de pedido: 43.96666666666667
 
-Costo promedio de mantenimiento: 57.32310550348805
+Costo promedio de mantenimiento: 40.090553329763765
 
-Costo promedio de faltante: 0.10640621159487298
+Costo promedio de faltante: 0.0031746783557575022
 ---------------------------------------------------------------------------
-Maximo inventario: 100
+Maximo inventario: 60
 
 Minimo inventario: 40
 
-Corrida numero: 1
+Corrida numero: 3
 
-Costo total promedio: 81.53231306243944
+Costo total promedio: 80.84907846318212
 
-Costo promedio de pedido: 10.208333333333334
+Costo promedio de pedido: 38.96666666666667
 
-Costo promedio de mantenimiento: 71.32397972910611
+Costo promedio de mantenimiento: 41.753948460772364
 
-Costo promedio de faltante: 0.0
+Costo promedio de faltante: 0.128463335743092
 ---------------------------------------------------------------------------
-Maximo inventario: 80
+Maximo inventario: 60
 
-Minimo inventario: 60
+Minimo inventario: 40
 
-Corrida numero: 1
+Corrida numero: 4
 
-Costo total promedio: 80.62665851797396
+Costo total promedio: 76.33084224642755
 
-Costo promedio de pedido: 12.241666666666667
+Costo promedio de pedido: 32.9
 
-Costo promedio de mantenimiento: 68.3849918513073
+Costo promedio de mantenimiento: 43.100589611974065
 
-Costo promedio de faltante: 0.0
+Costo promedio de faltante: 0.3302526344534857
 ---------------------------------------------------------------------------
-Maximo inventario: 100
+Maximo inventario: 60
 
-Minimo inventario: 60
+Minimo inventario: 40
 
-Corrida numero: 1
+Corrida numero: 5
 
-Costo total promedio: 88.76842896982339
+Costo total promedio: 78.72986974806007
 
-Costo promedio de pedido: 12.308333333333334
+Costo promedio de pedido: 36.733333333333334
 
-Costo promedio de mantenimiento: 76.3263929901241
+Costo promedio de mantenimiento: 41.96568636791306
 
-Costo promedio de faltante: 0.1337026463659434
+Costo promedio de faltante: 0.030850046813673277
+---------------------------------------------------------------------------
+Maximo inventario: 60
+
+Minimo inventario: 40
+
+Corrida numero: 6
+
+Costo total promedio: 85.81107483758933
+
+Costo promedio de pedido: 45.43333333333333
+
+Costo promedio de mantenimiento: 39.9646410706637
+
+Costo promedio de faltante: 0.4131004335922885
+---------------------------------------------------------------------------
+Maximo inventario: 60
+
+Minimo inventario: 40
+
+Corrida numero: 7
+
+Costo total promedio: 83.10846683029611
+
+Costo promedio de pedido: 42.56666666666667
+
+Costo promedio de mantenimiento: 40.35824159262216
+
+Costo promedio de faltante: 0.18355857100728437
+---------------------------------------------------------------------------
+Maximo inventario: 60
+
+Minimo inventario: 40
+
+Corrida numero: 8
+
+Costo total promedio: 83.06464438209474
+
+Costo promedio de pedido: 40.7
+
+Costo promedio de mantenimiento: 41.745721768888
+
+Costo promedio de faltante: 0.6189226132067382
+---------------------------------------------------------------------------
+Maximo inventario: 60
+
+Minimo inventario: 40
+
+Corrida numero: 9
+
+Costo total promedio: 85.35099096792443
+
+Costo promedio de pedido: 44.4
+
+Costo promedio de mantenimiento: 40.18286090210179
+
+Costo promedio de faltante: 0.7681300658226428
+---------------------------------------------------------------------------
+Maximo inventario: 60
+
+Minimo inventario: 40
+
+Corrida numero: 10
+
+Costo total promedio: 85.6560621931533
+
+Costo promedio de pedido: 45.1
+
+Costo promedio de mantenimiento: 39.12027180032701
+
+Costo promedio de faltante: 1.4357903928262854
+
+
+
+Valores promedio de corrida: 
+Costo total promedio de corrida: 82.18432551875709
+Costo de pedido promedio de corrida: 40.723333333333336
+Costo de mantenimiento promedio de corrida: 41.04209536280429
+Costo por faltante promedio de corrida: 0.41889682261945493
 ---------------------------------------------------------------------------

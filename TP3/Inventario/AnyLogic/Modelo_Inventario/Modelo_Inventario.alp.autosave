@@ -131,7 +131,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[int]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0]]></Code>
+							<Code><![CDATA[20]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -654,13 +654,13 @@ else{
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[double rand = uniform(0, 1);
 if (rand < 1.0 / 6.0) {
-   return 1;
+   return 4;
 } else if (rand < 1.0 / 6.0 + 1.0 / 3.0) {
-    return 2;
+    return 8;
 } else if (rand < 1.0 / 6.0 + 1.0 / 3.0 + 1.0 / 3.0) {
-    return 3;
+    return 12;
 } else {
-    return 4;
+    return 16;
 }]]></Body>
 				</Function>
 			</Functions>
