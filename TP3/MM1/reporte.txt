@@ -1,114 +1,24 @@
 Sistema de colas con unico servidor
 
-Media de tiempo entre entre arribos 0.625 minutos
-Media de tiempo de servicio 0.5 minutos
-Numero de clientes 50
+Media de tiempo entre entre arribos 0.5 minutos
+Media de tiempo de servicio 0.4 minutos
+Numero de clientes 10
 
 Resultados para corrida numero: 1 --------------------------------------------------
 
-Tiempo promedio de demora en cola 9.72151895198626 minutos
+Tiempo promedio de demora en cola 4.391191326442805 minutos
 
-Numero promedio en cola 5.276276471172985
+Numero promedio en cola 2.24455569719654
 
-Utilizacion del servidor 0.9567241953427027
+Utilizacion del servidor 0.8809183251676331
 
-Tiempo de simulacion finalizada 102.94499823300325 minutos
-
-Resultados para corrida numero: 2 --------------------------------------------------
-
-Tiempo promedio de demora en cola 26.59445022566357 minutos
-
-Numero promedio en cola 17.7504565118476
-
-Utilizacion del servidor 0.9702682221237352
-
-Tiempo de simulacion finalizada 122.14935393405561 minutos
-
-Resultados para corrida numero: 3 --------------------------------------------------
-
-Tiempo promedio de demora en cola 13.598859136499435 minutos
-
-Numero promedio en cola 6.557851908256401
-
-Utilizacion del servidor 0.9650831557137585
-
-Tiempo de simulacion finalizada 120.49653419546739 minutos
-
-Resultados para corrida numero: 4 --------------------------------------------------
-
-Tiempo promedio de demora en cola 8.0541106810827 minutos
-
-Numero promedio en cola 4.074643912408764
-
-Utilizacion del servidor 0.9440936665055841
-
-Tiempo de simulacion finalizada 98.83208022859398 minutos
-
-Resultados para corrida numero: 5 --------------------------------------------------
-
-Tiempo promedio de demora en cola 15.662996467910478 minutos
-
-Numero promedio en cola 11.71045936541442
-
-Utilizacion del servidor 0.9818764422383214
-
-Tiempo de simulacion finalizada 101.48287887758829 minutos
-
-Resultados para corrida numero: 6 --------------------------------------------------
-
-Tiempo promedio de demora en cola 13.691364924852152 minutos
-
-Numero promedio en cola 7.669130270246468
-
-Utilizacion del servidor 0.9733434241156484
-
-Tiempo de simulacion finalizada 104.33965713508908 minutos
-
-Resultados para corrida numero: 7 --------------------------------------------------
-
-Tiempo promedio de demora en cola 11.8685650319794 minutos
-
-Numero promedio en cola 6.577196532172474
-
-Utilizacion del servidor 0.9953801457156545
-
-Tiempo de simulacion finalizada 106.52759516900589 minutos
-
-Resultados para corrida numero: 8 --------------------------------------------------
-
-Tiempo promedio de demora en cola 7.520948008406485 minutos
-
-Numero promedio en cola 4.1772983919219815
-
-Utilizacion del servidor 0.7956079185106104
-
-Tiempo de simulacion finalizada 98.60896621434617 minutos
-
-Resultados para corrida numero: 9 --------------------------------------------------
-
-Tiempo promedio de demora en cola 20.526131817368412 minutos
-
-Numero promedio en cola 12.728859972188491
-
-Utilizacion del servidor 0.9838394932374426
-
-Tiempo de simulacion finalizada 105.8737066604484 minutos
-
-Resultados para corrida numero: 10 --------------------------------------------------
-
-Tiempo promedio de demora en cola 12.392539105464852 minutos
-
-Numero promedio en cola 6.852377016918647
-
-Utilizacion del servidor 0.8996984351296388
-
-Tiempo de simulacion finalizada 91.1738352171376 minutos
+Tiempo de simulacion finalizada 21.92896587191247 minutos
 Resultados Promedio --------------------
 
-Tiempo promedio de demora en cola 13.963148435121374 minutos
+Tiempo promedio de demora en cola 4.391191326442805 minutos
 
-Numero promedio en cola 8.337455035254823
+Numero promedio en cola 2.24455569719654
 
-Utilizacion del servidor 0.9465915098633095
+Utilizacion del servidor 0.8809183251676331
 
-Tiempo de simulacion finalizada 105.24296058647356 minutos
+Tiempo de simulacion finalizada 21.92896587191247 minutos
